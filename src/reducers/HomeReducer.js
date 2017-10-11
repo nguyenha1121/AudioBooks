@@ -1,4 +1,10 @@
-import { FETCH_DATA, DONE_FETCH, FETCH_STORY, DONE_FETCH_STORY, SELECT_PART } from '../share/types';
+import {
+  FETCH_DATA,
+  DONE_FETCH,
+  FETCH_STORY,
+  DONE_FETCH_STORY,
+  SELECT_PART
+} from "../share/types";
 
 const INIT_STATE = {
   loading: false,

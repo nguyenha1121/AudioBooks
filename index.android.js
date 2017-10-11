@@ -1,5 +1,5 @@
-import React from 'react';
-import { AppRegistry } from 'react-native';
-import App from './src/app';
+import React from "react";
+import { AppRegistry } from "react-native";
+import App from "./src/app";
 
-AppRegistry.registerComponent('AudioBooks' ,() => App);
+AppRegistry.registerComponent("AudioBooks", () => App);

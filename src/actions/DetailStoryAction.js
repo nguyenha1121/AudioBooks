@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { Actions } from 'react-native-router-flux';
-import { FETCH_STORY, DONE_FETCH_STORY, SELECT_PART } from '../share/types';
-import story from './testStory';
+import axios from "axios";
+import { Actions } from "react-native-router-flux";
+import { FETCH_STORY, DONE_FETCH_STORY, SELECT_PART } from "../share/types";
+import story from "./testStory";
 
-export const selectStory = (id) => {
-  return (dispatch) => {
+export const selectStory = id => {
+  return dispatch => {
     dispatch({
       type: FETCH_STORY
     });
@@ -20,7 +20,7 @@ export const selectStory = (id) => {
   };
 };
 
-export const selectPart = (part) => {
+export const selectPart = part => {
   return {
     type: SELECT_PART,
     payload: part

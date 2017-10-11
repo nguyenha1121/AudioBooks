@@ -1,67 +1,75 @@
-'use strict';
+"use strict";
 
-import React, {
-  Component
-} from 'react';
+import React, { Component } from "react";
 
 import {
   AppRegistry,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
-} from 'react-native';
+  View
+} from "react-native";
 
-import Video from 'react-native-video';
+import Video from "react-native-video";
 
 class AudioBooks extends Component {
-
   state = {
     rate: 1,
     volume: 1,
     muted: false,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     duration: 0.0,
     currentTime: 0.0,
-    paused: true,
+    paused: true
   };
 
   video: Video;
 
-  onLoad = (data) => {
+  onLoad = data => {
     this.setState({ duration: data.duration });
   };
 
-  onProgress = (data) => {
+  onProgress = data => {
     this.setState({ currentTime: data.currentTime });
   };
 
   onEnd = () => {
-    this.setState({ paused: true })
-    this.video.seek(0)
+    this.setState({ paused: true });
+    this.video.seek(0);
   };
 
   onAudioBecomingNoisy = () => {
-    this.setState({ paused: true })
+    this.setState({ paused: true });
   };
 
   onAudioFocusChanged = (event: { hasAudioFocus: boolean }) => {
-    this.setState({ paused: !event.hasAudioFocus })
+    this.setState({ paused: !event.hasAudioFocus });
   };
 
   getCurrentTimePercentage() {
     if (this.state.currentTime > 0) {
-      return parseFloat(this.state.currentTime) / parseFloat(this.state.duration);
+      return (
+        parseFloat(this.state.currentTime) / parseFloat(this.state.duration)
+      );
     }
     return 0;
-  };
+  }
 
   renderRateControl(rate) {
-    const isSelected = (this.state.rate === rate);
+    const isSelected = this.state.rate === rate;
 
     return (
-      <TouchableOpacity onPress={() => { this.setState({ rate }) }}>
-        <Text style={[styles.controlOption, { fontWeight: isSelected ? 'bold' : 'normal' }]}>
+      <TouchableOpacity
+        onPress={() => {
+          this.setState({ rate });
+        }}
+      >
+        <Text
+          style={[
+            styles.controlOption,
+            { fontWeight: isSelected ? "bold" : "normal" }
+          ]}
+        >
           {rate}x
         </Text>
       </TouchableOpacity>
@@ -69,11 +77,20 @@ class AudioBooks extends Component {
   }
 
   renderResizeModeControl(resizeMode) {
-    const isSelected = (this.state.resizeMode === resizeMode);
+    const isSelected = this.state.resizeMode === resizeMode;
 
     return (
-      <TouchableOpacity onPress={() => { this.setState({ resizeMode }) }}>
-        <Text style={[styles.controlOption, { fontWeight: isSelected ? 'bold' : 'normal' }]}>
+      <TouchableOpacity
+        onPress={() => {
+          this.setState({ resizeMode });
+        }}
+      >
+        <Text
+          style={[
+            styles.controlOption,
+            { fontWeight: isSelected ? "bold" : "normal" }
+          ]}
+        >
           {resizeMode}
         </Text>
       </TouchableOpacity>
@@ -81,15 +98,24 @@ class AudioBooks extends Component {
   }
 
   renderVolumeControl(volume) {
-    const isSelected = (this.state.volume === volume);
+    const isSelected = this.state.volume === volume;
 
     return (
-      <TouchableOpacity onPress={() => { this.setState({ volume }) }}>
-        <Text style={[styles.controlOption, { fontWeight: isSelected ? 'bold' : 'normal' }]}>
+      <TouchableOpacity
+        onPress={() => {
+          this.setState({ volume });
+        }}
+      >
+        <Text
+          style={[
+            styles.controlOption,
+            { fontWeight: isSelected ? "bold" : "normal" }
+          ]}
+        >
           {volume * 100}%
         </Text>
       </TouchableOpacity>
-    )
+    );
   }
 
   render() {
@@ -106,7 +132,10 @@ class AudioBooks extends Component {
             ref="audio"
             /* For ExoPlayer */
             // source={{ uri: 'http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7.8506521BFC350652163895D4C26DEE124209AA9E&key=ik0', type: 'mpd' }}
-            source={{uri: 'https://api.soundcloud.com/tracks/99516198/stream?client_id=8a754483a114344c70ab15f20a5035ab'}}
+            source={{
+              uri:
+                "https://api.soundcloud.com/tracks/99516198/stream?client_id=8a754483a114344c70ab15f20a5035ab"
+            }}
             style={styles.fullScreen}
             rate={this.state.rate}
             paused={this.state.paused}
@@ -141,8 +170,12 @@ class AudioBooks extends Component {
 
           <View style={styles.trackingControls}>
             <View style={styles.progress}>
-              <View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
-              <View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
+              <View
+                style={[styles.innerProgressCompleted, { flex: flexCompleted }]}
+              />
+              <View
+                style={[styles.innerProgressRemaining, { flex: flexRemaining }]}
+              />
             </View>
           </View>
         </View>
@@ -151,74 +184,73 @@ class AudioBooks extends Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'red',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "red"
   },
   fullScreen: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0,
+    right: 0
   },
   controls: {
-    backgroundColor: 'green',
+    backgroundColor: "green",
     borderRadius: 5,
-    position: 'absolute',
+    position: "absolute",
     bottom: 20,
     left: 20,
-    right: 20,
+    right: 20
   },
   progress: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
     borderRadius: 3,
-    overflow: 'hidden',
+    overflow: "hidden"
   },
   innerProgressCompleted: {
     height: 20,
-    backgroundColor: '#cccccc',
+    backgroundColor: "#cccccc"
   },
   innerProgressRemaining: {
     height: 5,
-    backgroundColor: '#2C2C2C',
+    backgroundColor: "#2C2C2C"
   },
   generalControls: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
     borderRadius: 4,
-    overflow: 'hidden',
-    paddingBottom: 10,
+    overflow: "hidden",
+    paddingBottom: 10
   },
   rateControl: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center"
   },
   volumeControl: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center"
   },
   resizeModeControl: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
   },
   controlOption: {
-    alignSelf: 'center',
+    alignSelf: "center",
     fontSize: 11,
-    color: 'white',
+    color: "white",
     paddingLeft: 2,
     paddingRight: 2,
-    lineHeight: 12,
-  },
+    lineHeight: 12
+  }
 });
 
-AppRegistry.registerComponent('AudioBooks', () => AudioBooks);
+AppRegistry.registerComponent("AudioBooks", () => AudioBooks);
