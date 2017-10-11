@@ -1,55 +1,65 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Video from 'react-native-video';
+import React, { Component } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Video from "react-native-video";
 
 class Player extends Component {
-
   state = {
     rate: 1,
     volume: 1,
     muted: false,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     duration: 0.0,
     currentTime: 0.0,
-    paused: true,
+    paused: true
   };
 
-  onLoad = (data) => {
+  onLoad = data => {
     this.setState({ duration: data.duration });
   };
 
-  onProgress = (data) => {
+  onProgress = data => {
     this.setState({ currentTime: data.currentTime });
   };
 
   onEnd = () => {
     this.setState({ paused: true });
     this.video.seek(0);
-  }
+  };
 
   onAudioBecomingNoisy = () => {
     this.setState({ paused: true });
-  }
+  };
 
   onAudioFocusChanged = (event: { hasAudioFocus: boolean }) => {
     this.setState({ paused: !event.hasAudioFocus });
-  }
+  };
 
   getCurrentTimePercentage() {
     if (this.state.currentTime > 0) {
-      return parseFloat(this.state.currentTime) / parseFloat(this.state.duration);
+      return (
+        parseFloat(this.state.currentTime) / parseFloat(this.state.duration)
+      );
     }
     return 0;
   }
 
-    video: Video;
+  video: Video;
 
   renderRateControl(rate) {
-    const isSelected = (this.state.rate === rate);
+    const isSelected = this.state.rate === rate;
 
     return (
-      <TouchableOpacity onPress={() => { this.setState({ rate }); }}>
-        <Text style={[styles.controlOption, { fontWeight: isSelected ? 'bold' : 'normal' }]}>
+      <TouchableOpacity
+        onPress={() => {
+          this.setState({ rate });
+        }}
+      >
+        <Text
+          style={[
+            styles.controlOption,
+            { fontWeight: isSelected ? "bold" : "normal" }
+          ]}
+        >
           {rate}x
         </Text>
       </TouchableOpacity>
@@ -57,11 +67,20 @@ class Player extends Component {
   }
 
   renderResizeModeControl(resizeMode) {
-    const isSelected = (this.state.resizeMode === resizeMode);
+    const isSelected = this.state.resizeMode === resizeMode;
 
     return (
-      <TouchableOpacity onPress={() => { this.setState({ resizeMode }); }}>
-        <Text style={[styles.controlOption, { fontWeight: isSelected ? 'bold' : 'normal' }]}>
+      <TouchableOpacity
+        onPress={() => {
+          this.setState({ resizeMode });
+        }}
+      >
+        <Text
+          style={[
+            styles.controlOption,
+            { fontWeight: isSelected ? "bold" : "normal" }
+          ]}
+        >
           {resizeMode}
         </Text>
       </TouchableOpacity>
@@ -69,11 +88,20 @@ class Player extends Component {
   }
 
   renderVolumeControl(volume) {
-    const isSelected = (this.state.volume === volume);
+    const isSelected = this.state.volume === volume;
 
     return (
-      <TouchableOpacity onPress={() => { this.setState({ volume }); }}>
-        <Text style={[styles.controlOption, { fontWeight: isSelected ? 'bold' : 'normal' }]}>
+      <TouchableOpacity
+        onPress={() => {
+          this.setState({ volume });
+        }}
+      >
+        <Text
+          style={[
+            styles.controlOption,
+            { fontWeight: isSelected ? "bold" : "normal" }
+          ]}
+        >
           {volume * 100}%
         </Text>
       </TouchableOpacity>
@@ -83,7 +111,7 @@ class Player extends Component {
   render() {
     const flexCompleted = this.getCurrentTimePercentage() * 100;
     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
-    let url = '';
+    let url = "";
     if (this.props.currentSong !== null) {
       url = this.props.currentSong.urlMedia;
     }
@@ -93,24 +121,24 @@ class Player extends Component {
           style={styles.fullScreen}
           onPress={() => this.setState({ paused: !this.state.paused })}
         >
-        <Text>Play</Text>
+          <Text>Play</Text>
         </TouchableOpacity>
-          <Video
-            ref="audio"
-            source={{ uri: url }}
-            style={styles.fullScreen}
-            rate={this.state.rate}
-            paused={this.state.paused}
-            volume={this.state.volume}
-            muted={this.state.muted}
-            resizeMode={this.state.resizeMode}
-            onLoad={this.onLoad}
-            onProgress={this.onProgress}
-            onEnd={this.onEnd}
-            onAudioBecomingNoisy={this.onAudioBecomingNoisy}
-            onAudioFocusChanged={this.onAudioFocusChanged}
-            repeat={false}
-          />
+        <Video
+          ref="audio"
+          source={{ uri: url }}
+          style={styles.fullScreen}
+          rate={this.state.rate}
+          paused={this.state.paused}
+          volume={this.state.volume}
+          muted={this.state.muted}
+          resizeMode={this.state.resizeMode}
+          onLoad={this.onLoad}
+          onProgress={this.onProgress}
+          onEnd={this.onEnd}
+          onAudioBecomingNoisy={this.onAudioBecomingNoisy}
+          onAudioFocusChanged={this.onAudioFocusChanged}
+          repeat={false}
+        />
         <View style={styles.controls}>
           <View style={styles.generalControls}>
             <View style={styles.rateControl}>
@@ -122,16 +150,20 @@ class Player extends Component {
             </View>
 
             <View style={styles.resizeModeControl}>
-              {this.renderResizeModeControl('cover')}
-              {this.renderResizeModeControl('contain')}
-              {this.renderResizeModeControl('stretch')}
+              {this.renderResizeModeControl("cover")}
+              {this.renderResizeModeControl("contain")}
+              {this.renderResizeModeControl("stretch")}
             </View>
           </View>
 
           <View style={styles.trackingControls}>
             <View style={styles.progress}>
-              <View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
-              <View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
+              <View
+                style={[styles.innerProgressCompleted, { flex: flexCompleted }]}
+              />
+              <View
+                style={[styles.innerProgressRemaining, { flex: flexRemaining }]}
+              />
             </View>
           </View>
         </View>
@@ -140,75 +172,74 @@ class Player extends Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'red',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "red"
   },
   fullScreen: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     bottom: 0,
     right: 0,
     height: 3,
-    backgroundColor: '#cdcdcd'
+    backgroundColor: "#cdcdcd"
   },
   controls: {
-    backgroundColor: 'green',
+    backgroundColor: "green",
     borderRadius: 5,
-    position: 'absolute',
+    position: "absolute",
     bottom: 20,
     left: 20,
-    right: 20,
+    right: 20
   },
   progress: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
     borderRadius: 3,
-    overflow: 'hidden',
+    overflow: "hidden"
   },
   innerProgressCompleted: {
     height: 20,
-    backgroundColor: '#cccccc',
+    backgroundColor: "#cccccc"
   },
   innerProgressRemaining: {
     height: 5,
-    backgroundColor: '#2C2C2C',
+    backgroundColor: "#2C2C2C"
   },
   generalControls: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
     borderRadius: 4,
-    overflow: 'hidden',
-    paddingBottom: 10,
+    overflow: "hidden",
+    paddingBottom: 10
   },
   rateControl: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center"
   },
   volumeControl: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center"
   },
   resizeModeControl: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
   },
   controlOption: {
-    alignSelf: 'center',
+    alignSelf: "center",
     fontSize: 11,
-    color: 'white',
+    color: "white",
     paddingLeft: 2,
     paddingRight: 2,
-    lineHeight: 12,
-  },
+    lineHeight: 12
+  }
 });
 
 export default Player;

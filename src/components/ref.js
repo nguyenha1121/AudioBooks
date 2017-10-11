@@ -1,24 +1,32 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Video from 'react-native-video';
-import { connect } from 'react-redux';
-import { togglePlay, toggleVolume, setTime, onLoad, onSlidingStart, onSlidingChange, onSlidingComplete, onEnd } from '../actions';
+import React, { Component } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Video from "react-native-video";
+import { connect } from "react-redux";
+import {
+  togglePlay,
+  toggleVolume,
+  setTime,
+  onLoad,
+  onSlidingStart,
+  onSlidingChange,
+  onSlidingComplete,
+  onEnd
+} from "../actions";
 
 class Player extends Component {
-
-  onLoad = (params) => {
+  onLoad = params => {
     this.props.onLoad(params.duration);
-  }
+  };
 
   onEnd = () => {
     this.props.onEnd();
-  }
+  };
 
-  setTime = (params) => {
+  setTime = params => {
     if (!this.props.sliding) {
       this.props.setTime(params.currentTime);
     }
-  }
+  };
   //
   // renderVideo() {
   //   if (this.props.currentSong !== null) {
@@ -47,7 +55,7 @@ class Player extends Component {
 
   render() {
     console.log(this.props);
-    let url = '';
+    let url = "";
     if (this.props.currentSong !== null) {
       url = this.props.currentSong.urlMedia;
     }
@@ -66,9 +74,7 @@ class Player extends Component {
             resizeMode="cover"
             repeat={false}
           />
-          <TouchableOpacity
-            onPress={() => this.props.togglePlay()}
-          >
+          <TouchableOpacity onPress={() => this.props.togglePlay()}>
             <Text>any thing</Text>
           </TouchableOpacity>
         </View>
@@ -80,7 +86,7 @@ class Player extends Component {
 const styles = StyleSheet.create({
   containerBottom: {
     height: 60,
-    backgroundColor: '#cdcdcd',
+    backgroundColor: "#cdcdcd"
   }
 });
 
@@ -91,9 +97,9 @@ const mapStateToProps = ({ player, home }) => {
   const currentTime = player.currentTime;
   const songIndex = player.songIndex;
   const currentSong = home.currentSong;
-  return ({ playing, muted, sliding, currentTime, songIndex, currentSong });
+  return { playing, muted, sliding, currentTime, songIndex, currentSong };
 };
-// 
+//
 // export default connect(mapStateToProps, {
 //   togglePlay,
 //   toggleVolume,

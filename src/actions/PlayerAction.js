@@ -7,24 +7,24 @@ import {
   ON_SLIDING_CHANGE,
   ON_SLIDING_COMPLETE,
   ON_END
-} from '../share/types';
+} from "../share/types";
 
-export const togglePlay = (playing) => {
+export const togglePlay = playing => {
   return {
     type: TOGGLE_PLAY,
     payload: playing
   };
 };
 
-export const toggleVolume = (volume) => {
+export const toggleVolume = volume => {
   return {
     type: TOGGLE_VOLUME,
     payload: volume
   };
 };
 
-export const setTime = (params) => {
-  return (dispatch) => {
+export const setTime = params => {
+  return dispatch => {
     dispatch({
       type: SET_TIME,
       payload: params
@@ -32,27 +32,27 @@ export const setTime = (params) => {
   };
 };
 
-export const onLoad = (params) => {
-  return ({
+export const onLoad = params => {
+  return {
     type: ON_LOAD,
     payload: params
-  });
+  };
 };
 
 export const onSlidingStart = () => {
-    return {
-      type: ON_SLIDING_START,
-    };
+  return {
+    type: ON_SLIDING_START
+  };
 };
 
-export const onSlidingChange = (value) => {
+export const onSlidingChange = value => {
   return {
     type: ON_SLIDING_CHANGE,
     payload: value
   };
 };
 
-export const onSlidingComplete = (value) => {
+export const onSlidingComplete = value => {
   return {
     type: ON_SLIDING_COMPLETE,
     payload: value

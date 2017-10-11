@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
-import { selectPart } from '../actions';
+import React, { Component } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { connect } from "react-redux";
+import { selectPart } from "../actions";
 
 class StoryHomePart extends Component {
   render() {
@@ -14,7 +14,11 @@ class StoryHomePart extends Component {
     } else ct = styles.container;
     return (
       <View style={ct}>
-        <TouchableOpacity onPress={() => { this.props.selectPart(this.props.data); }}>
+        <TouchableOpacity
+          onPress={() => {
+            this.props.selectPart(this.props.data);
+          }}
+        >
           <Text>{this.props.data.name}</Text>
         </TouchableOpacity>
       </View>
@@ -25,16 +29,16 @@ class StoryHomePart extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff"
   },
   container_selected: {
-    backgroundColor: '#f142f4',
+    backgroundColor: "#f142f4"
   }
 });
 
 const mapStateToProps = ({ home }) => {
   const select = home.currentSong;
-  return ({ selected: select });
+  return { selected: select };
 };
 
 export default connect(mapStateToProps, { selectPart })(StoryHomePart);

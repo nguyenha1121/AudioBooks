@@ -1,2 +1,2 @@
-export * from './HomeActions';
-export * from './DetailStoryAction';
+export * from "./HomeActions";
+export * from "./DetailStoryAction";
